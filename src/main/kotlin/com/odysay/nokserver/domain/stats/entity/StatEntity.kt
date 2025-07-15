@@ -1,6 +1,6 @@
 package com.odysay.nokserver.domain.stats.entity
 
-import com.odysay.nokserver.domain.members.entity.MemberEntity
+import com.odysay.nokserver.domain.member.Member
 import com.odysay.nokserver.domain.stats.enumeration.StatCategoryType
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
@@ -25,6 +25,6 @@ class StatEntity(
     val exp: Long,
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_member_id")
-    val member: MemberEntity,
+    val member: Member,
 ) {
 }

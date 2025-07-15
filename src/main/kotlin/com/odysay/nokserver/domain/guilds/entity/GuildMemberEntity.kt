@@ -1,7 +1,7 @@
 package com.odysay.nokserver.domain.guilds.entity
 
 import com.odysay.nokserver.domain.guilds.enumeration.GuildMemberRoleType
-import com.odysay.nokserver.domain.members.entity.MemberEntity
+import com.odysay.nokserver.domain.member.Member
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
@@ -24,7 +24,7 @@ class GuildMemberEntity(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_member_id")
-    val member: MemberEntity,
+    val member: Member,
 
     var role: GuildMemberRoleType = GuildMemberRoleType.MEMBER,
 ) {

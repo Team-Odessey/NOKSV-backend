@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: nok-server
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/noksv-db?useSSL=false&serverTimezone=UTC
+    username: root
+    password: Amgfaa289!@
+
+jwt:
+  secret: 'f7393c68aab9e7f840ab14c64a9e3c0cc4e39adee97037e5c5f0cd874c32a72b'
+  access-token-validity-in-seconds: 3600
+  refresh-token-validity-in-seconds: 86400

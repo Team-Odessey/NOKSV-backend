@@ -1,6 +1,6 @@
 package com.odysay.nokserver.domain.moneys.entity
 
-import com.odysay.nokserver.domain.members.entity.MemberEntity
+import com.odysay.nokserver.domain.member.Member
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
@@ -20,6 +20,6 @@ class MoneyEntity(
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_member_id")
-    val member: MemberEntity,
+    val member: Member,
 ) {
 }
