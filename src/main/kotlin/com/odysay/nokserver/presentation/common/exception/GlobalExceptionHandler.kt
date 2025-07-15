@@ -20,15 +20,4 @@ class GlobalExceptionHandler {
         )
         return ResponseEntity.ok(errorResponse)
     }
-
-    @ExceptionHandler(Exception::class)
-    fun handleGlobalException(ex: Exception, request: WebRequest): ResponseEntity<ErrorResponse> {
-        val errorResponse = ErrorResponse(
-            status = HttpStatus.INTERNAL_SERVER_ERROR.value(),
-            error = HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase,
-            message = ex.message ?: "An unexpected error occurred",
-            path = request.getDescription(false)
-        )
-        return ResponseEntity.ok(errorResponse)
-    }
 }
