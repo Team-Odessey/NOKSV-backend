@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 data class GuildMemberResponse(
     val id: Long,
     val memberId: Long,
-    val memberNickname: String,
+    val memberUsername: String,
     val role: GuildMemberRoleType
 ) {
     companion object {
@@ -16,7 +16,7 @@ data class GuildMemberResponse(
             return GuildMemberResponse(
                 id = guildMemberEntity.id!!,
                 memberId = guildMemberEntity.member.id!!,
-                memberNickname = guildMemberEntity.member.nickname,
+                memberUsername = guildMemberEntity.member.username,
                 role = guildMemberEntity.role
             )
         }

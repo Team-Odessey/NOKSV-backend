@@ -8,11 +8,12 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/noksv-db?useSSL=false&serverTimezone=UTC
+    url: ${SPRING_DATASOURCE_URL}
     username: root
-    password: Amgfaa289!@
+    password: ${SPRING_DATASOURCE_PASSWORD}
 
 jwt:
   secret: 'f7393c68aab9e7f840ab14c64a9e3c0cc4e39adee97037e5c5f0cd874c32a72b'
