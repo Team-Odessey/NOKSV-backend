@@ -1,4 +1,4 @@
-package com.odysay.nokserver.domain.members.entity
+package com.odysay.nokserver.domain.member
 
 import com.odysay.nokserver.domain.common.entity.BaseTimeEntity
 import jakarta.persistence.Column
@@ -11,14 +11,20 @@ import java.util.UUID
 
 @Entity
 @Table(name = "members")
-class MemberEntity(
+class Member(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
+    @Column(length = 100)
     var name: String,
+    @Column(length = 255)
     var password: String,
     @Column(unique = true, nullable = false)
     val minecraftId: UUID,
-    var totalPlayTime: Long = 0L
+    @Column(name = "fk_guild_id")
+    var guildId: Long? = null,
+    var totalPlayTime: Int = 0,
+    @Column(nullable = false, length = 100, unique = true)
+    var nickname: String // Add nickname field
 ): BaseTimeEntity() {
 }

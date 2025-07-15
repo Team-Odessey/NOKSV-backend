@@ -1,7 +1,7 @@
 package com.odysay.nokserver.domain.auctions.entity
 
 import com.odysay.nokserver.domain.common.entity.BaseTimeEntity
-import com.odysay.nokserver.domain.members.entity.MemberEntity
+import com.odysay.nokserver.domain.member.Member
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
@@ -25,7 +25,7 @@ class AuctionMemberEntity(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_member_id")
-    val member: MemberEntity,
+    val member: Member,
 
     val price: Long,
 ): BaseTimeEntity() {
