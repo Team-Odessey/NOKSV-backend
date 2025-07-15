@@ -31,10 +31,7 @@ class AuthService(
     @Transactional
     fun signup(request: SignupRequest): AuthResponse {
         if (memberRepository.findByUsername(request.username) != null) {
-            throw IllegalArgumentException("Minecraft nickname already exists")
-        }
-        if (memberRepository.findByNickname(request.nickname) != null) {
-            throw IllegalArgumentException("Nickname already exists")
+            throw IllegalArgumentException("Username already exists")
         }
 
         val minecraftUuid = minecraftApiService.getUuidByUsername(request.username).block()
@@ -43,13 +40,13 @@ class AuthService(
         val newMember = Member(
             username = request.username,
             password = passwordEncoder.encode(request.password),
-            nickname = request.nickname,
+            nickname = request.username,
             minecraftId = minecraftUuid
         )
         val savedMember = memberRepository.save(newMember)
 
-        val accessToken = jwtProvider.generateAccessToken(savedMember.nickname)
-        val refreshToken = jwtProvider.generateRefreshToken(savedMember.nickname)
+        val accessToken = jwtProvider.generateAccessToken(savedMember.username)
+        val refreshToken = jwtProvider.generateRefreshToken(savedMember.username)
 
         val refreshTokenEntity = RefreshToken(
             token = refreshToken,
@@ -64,14 +61,14 @@ class AuthService(
     @Transactional
     fun login(request: LoginRequest): AuthResponse {
         authenticationManager.authenticate(
-            UsernamePasswordAuthenticationToken(request.nickname, request.password)
+            UsernamePasswordAuthenticationToken(request.username, request.password)
         )
 
-        val member = memberRepository.findByNickname(request.nickname)
+        val member = memberRepository.findByUsername(request.username)
             ?: throw UsernameNotFoundException("User not found")
 
-        val accessToken = jwtProvider.generateAccessToken(member.nickname)
-        val refreshToken = jwtProvider.generateRefreshToken(member.nickname)
+        val accessToken = jwtProvider.generateAccessToken(member.username)
+        val refreshToken = jwtProvider.generateRefreshToken(member.username)
 
         refreshTokenRepository.findByMember(member).ifPresentOrElse(
             { existingRefreshToken ->
@@ -104,8 +101,8 @@ class AuthService(
         }
 
         val member = storedRefreshToken.member
-        val newAccessToken = jwtProvider.generateAccessToken(member.nickname)
-        val newRefreshToken = jwtProvider.generateRefreshToken(member.nickname)
+        val newAccessToken = jwtProvider.generateAccessToken(member.username)
+        val newRefreshToken = jwtProvider.generateRefreshToken(member.username)
 
         storedRefreshToken.token = newRefreshToken
         storedRefreshToken.expiryDate = Instant.now().plusSeconds(jwtProvider.getRefreshTokenValidityInSeconds()) // 올바른 계산

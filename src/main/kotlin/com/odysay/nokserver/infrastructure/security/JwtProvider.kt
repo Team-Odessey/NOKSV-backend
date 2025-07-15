@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
 import java.security.Key
 import java.util.Date
-import java.time.Instant // Instant 임포트 추가
 
 @Component
 class JwtProvider {
@@ -24,17 +23,17 @@ class JwtProvider {
 
     private val key: Key by lazy { Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret)) }
 
-    fun generateAccessToken(serviceUsername: String): String {
-        return generateToken(serviceUsername, accessTokenValidityInSeconds * 1000)
+    fun generateAccessToken(username: String): String {
+        return generateToken(username, accessTokenValidityInSeconds * 1000)
     }
 
-    fun generateRefreshToken(serviceUsername: String): String {
-        return generateToken(serviceUsername, refreshTokenValidityInSeconds * 1000)
+    fun generateRefreshToken(username: String): String {
+        return generateToken(username, refreshTokenValidityInSeconds * 1000)
     }
 
-    private fun generateToken(serviceUsername: String, expirationTime: Long): String {
+    private fun generateToken(username: String, expirationTime: Long): String {
         return Jwts.builder()
-            .setSubject(serviceUsername)
+            .setSubject(username)
             .setIssuedAt(Date(System.currentTimeMillis()))
             .setExpiration(Date(System.currentTimeMillis() + expirationTime))
             .signWith(key, SignatureAlgorithm.HS256)

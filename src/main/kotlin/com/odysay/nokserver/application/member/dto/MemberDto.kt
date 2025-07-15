@@ -32,10 +32,6 @@ data class MemberProfileResponse(
     }
 }
 
-data class MemberUpdateRequest(
-    val nickname: String?
-)
-
 data class StatResponse(
     val category: StatCategoryType,
     val level: Int,
