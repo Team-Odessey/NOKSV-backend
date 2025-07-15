@@ -15,27 +15,26 @@ import java.time.Instant // Instant 임포트 추가
 @Component
 class JwtProvider {
 
-    // 문제 발생 부분: @Value 어노테이션의 문자열 리터럴 방식 변경
-    @Value("\${jwt.secret}") // 큰따옴표 안에 직접 SpEL 표현식 사용
+    @Value("\${jwt.secret}")
     private lateinit var secret: String
-    @Value("\${jwt.access-token-validity-in-seconds}") // 큰따옴표 안에 직접 SpEL 표현식 사용
+    @Value("\${jwt.access-token-validity-in-seconds}")
     private var accessTokenValidityInSeconds: Long = 0
-    @Value("\${jwt.refresh-token-validity-in-seconds}") // 큰따옴표 안에 직접 SpEL 표현식 사용
+    @Value("\${jwt.refresh-token-validity-in-seconds}")
     private var refreshTokenValidityInSeconds: Long = 0
 
     private val key: Key by lazy { Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret)) }
 
-    fun generateAccessToken(username: String): String {
-        return generateToken(username, accessTokenValidityInSeconds * 1000)
+    fun generateAccessToken(serviceUsername: String): String {
+        return generateToken(serviceUsername, accessTokenValidityInSeconds * 1000)
     }
 
-    fun generateRefreshToken(username: String): String {
-        return generateToken(username, refreshTokenValidityInSeconds * 1000)
+    fun generateRefreshToken(serviceUsername: String): String {
+        return generateToken(serviceUsername, refreshTokenValidityInSeconds * 1000)
     }
 
-    private fun generateToken(username: String, expirationTime: Long): String {
+    private fun generateToken(serviceUsername: String, expirationTime: Long): String {
         return Jwts.builder()
-            .setSubject(username)
+            .setSubject(serviceUsername)
             .setIssuedAt(Date(System.currentTimeMillis()))
             .setExpiration(Date(System.currentTimeMillis() + expirationTime))
             .signWith(key, SignatureAlgorithm.HS256)
@@ -63,7 +62,6 @@ class JwtProvider {
         return getExpirationDateFromToken(token).before(Date())
     }
 
-    // Refresh Token 유효 기간을 초 단위로 반환하는 메서드 추가
     fun getRefreshTokenValidityInSeconds(): Long {
         return refreshTokenValidityInSeconds
     }

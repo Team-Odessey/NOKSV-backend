@@ -1,7 +1,8 @@
 package com.odysay.nokserver.presentation.auth
 
 import com.odysay.nokserver.application.auth.AuthService
-import com.odysay.nokserver.presentation.auth.dto.AuthRequest
+import com.odysay.nokserver.presentation.auth.dto.LoginRequest
+import com.odysay.nokserver.presentation.auth.dto.SignupRequest
 import com.odysay.nokserver.presentation.auth.dto.AuthResponse
 import com.odysay.nokserver.presentation.auth.dto.RefreshTokenRequest
 import org.springframework.http.HttpStatus
@@ -15,7 +16,7 @@ class AuthController(
 ) {
 
     @PostMapping("/signup")
-    fun signup(@RequestBody request: AuthRequest): ResponseEntity<AuthResponse> {
+    fun signup(@RequestBody request: SignupRequest): ResponseEntity<AuthResponse> {
         return try {
             val response = authService.signup(request)
             ResponseEntity.ok(response)
@@ -25,7 +26,7 @@ class AuthController(
     }
 
     @PostMapping("/login")
-    fun login(@RequestBody request: AuthRequest): ResponseEntity<AuthResponse> {
+    fun login(@RequestBody request: LoginRequest): ResponseEntity<AuthResponse> {
         return try {
             val response = authService.login(request)
             ResponseEntity.ok(response)

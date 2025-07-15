@@ -21,8 +21,8 @@ class StatEntity(
     var id: Long? = null,
     @Enumerated(EnumType.STRING)
     val category: StatCategoryType,
-    val level: Int,
-    val exp: Long,
+    var level: Int,
+    var exp: Long,
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_member_id")
     val member: Member,

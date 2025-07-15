@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import java.time.LocalDateTime
 import java.util.UUID
 
 @Entity
@@ -16,7 +17,7 @@ class Member(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
     @Column(length = 100)
-    var name: String,
+    var username: String,
     @Column(length = 255)
     var password: String,
     @Column(unique = true, nullable = false)
@@ -25,6 +26,8 @@ class Member(
     var guildId: Long? = null,
     var totalPlayTime: Int = 0,
     @Column(nullable = false, length = 100, unique = true)
-    var nickname: String // Add nickname field
+    var nickname: String,
+    var killCount: Int = 0,
+    var joinDate: LocalDateTime = LocalDateTime.now(),
 ): BaseTimeEntity() {
 }
