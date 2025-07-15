@@ -13,8 +13,8 @@ class CustomUserDetailsService(
 ) : UserDetailsService {
 
     override fun loadUserByUsername(username: String): UserDetails {
-        val member = memberRepository.findByName(username)
+        val member = memberRepository.findByNickname(username)
             ?: throw UsernameNotFoundException("User not found with username: $username")
-        return User(member.name, member.password, emptyList())
+        return User(member.nickname, member.password, emptyList())
     }
 }
