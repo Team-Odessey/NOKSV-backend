@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     build:
@@ -8,9 +6,9 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/noksv-db?useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/nok?useSSL=false&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: Amgfaa289!@
+      SPRING_DATASOURCE_PASSWORD: 1234
       JWT_SECRET: f7393c68aab9e7f840ab14c64a9e3c0cc4e39adee97037e5c5f0cd874c32a72b
       JWT_ACCESS_TOKEN_VALIDITY_IN_SECONDS: 3600
       JWT_REFRESH_TOKEN_VALIDITY_IN_SECONDS: 86400
@@ -22,8 +20,8 @@ services:
   db:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: Amgfaa289!@
-      MYSQL_DATABASE: noksv-db
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: nok
     volumes:
       - db_data:/var/lib/mysql
     ports:
