@@ -17,7 +17,6 @@ import java.time.Instant
 import com.odysay.nokserver.infrastructure.minecraft.MinecraftApiService
 import com.odysay.nokserver.presentation.auth.dto.LoginRequest
 import com.odysay.nokserver.presentation.auth.dto.SignupRequest
-import java.util.UUID
 
 @Service
 class AuthService(

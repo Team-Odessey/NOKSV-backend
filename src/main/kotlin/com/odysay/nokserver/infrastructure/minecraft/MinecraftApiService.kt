@@ -22,7 +22,6 @@ class MinecraftApiService(
                 UUID.fromString(formattedUuid)
             }
             .doOnError { error ->
-                // 에러 로깅 (필요시 더 상세한 정보 추가)
                 println("Error fetching Minecraft UUID for $username: ${error.message}")
             }
     }
