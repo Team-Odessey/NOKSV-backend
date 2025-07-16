@@ -1,5 +1,6 @@
 package com.odysay.nokserver.application.member.dto
 
+import com.odysay.nokserver.application.ranking.dto.RankingResponse
 import com.odysay.nokserver.domain.member.Member
 import com.odysay.nokserver.domain.stats.entity.StatEntity
 import com.odysay.nokserver.domain.stats.enumeration.StatCategoryType
@@ -13,10 +14,11 @@ data class MemberProfileResponse(
     val totalPlayTime: Int,
     val killCount: Int,
     val joinDate: LocalDateTime?,
-    val stats: Map<StatCategoryType, StatResponse>
+    val stats: Map<StatCategoryType, StatResponse>,
+    val rankings: Map<StatCategoryType, RankingResponse>? = null
 ) {
     companion object {
-        fun from(member: Member, guildName: String?, stats: List<StatEntity>): MemberProfileResponse {
+        fun from(member: Member, guildName: String?, stats: List<StatEntity>, rankings: Map<StatCategoryType, RankingResponse>? = null): MemberProfileResponse {
             val statMap = stats.associate { it.category to StatResponse.from(it) }
             return MemberProfileResponse(
                 id = member.id!!,
@@ -26,7 +28,8 @@ data class MemberProfileResponse(
                 totalPlayTime = member.totalPlayTime,
                 killCount = member.killCount,
                 joinDate = member.joinDate,
-                stats = statMap
+                stats = statMap,
+                rankings = rankings
             )
         }
     }
