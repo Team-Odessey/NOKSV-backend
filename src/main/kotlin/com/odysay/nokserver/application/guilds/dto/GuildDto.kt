@@ -30,7 +30,7 @@ data class GuildResponse(
     val memberCount: Int,
     val leaderMemberId: Long?,
     val viceLeaderMemberId: Long?,
-    val creationDate: LocalDateTime,
+    val creationDate: LocalDateTime?,
     val inquiryChannel: String?,
     val introduction: String?,
     val description: String?,
